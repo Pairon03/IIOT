@@ -30,4 +30,12 @@ void setup(){
         request -> send_P(200, "text/html", index_html);
     });
     
+    server.onNotFound(notFound);
+
+    server.begin();
+
+}
+
+void notFound (AsyncWebServerRequest *request){
+    request -> send_P(404, "text/html", notFound_html);
 }
