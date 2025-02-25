@@ -6,5 +6,5 @@ export class Device {
 
 export class Environment {
     name: string = '';
-    devices: Array<Device> = [];
+    devices: Array<Device> = [];    
 }
