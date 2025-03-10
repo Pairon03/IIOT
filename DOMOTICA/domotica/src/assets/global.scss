@@ -1,0 +1,10 @@
+@use "material-icons/iconfont/material-icons.css";
+@use "reset.scss";
+@use "variables.scss";
+
+
+#app{
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: var(--background-light-color);
+}
