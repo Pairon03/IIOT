@@ -37,14 +37,18 @@ environments.push(quarto);
 
 <template>
     <h1>Seus Dispositivos: </h1>
-    
-    <div v-for="(currentDevice, id) in sala.devices" :key="id">        
-        <h5>{{ currentDevice.name }}</h5>
-        <span class="icons material-icons-round">{{ currentDevice.icon }}</span>
-        <div :class="`button-${currentDevice.state}`">
-            <button class="on">ON</button>
-            <button class="off">OFF</button>
-        </div>      
+
+    <div v-for="(currentEnvironment, envId) in environments" :key="envId">
+        <h3>{{ currentEnvironment.name }}</h3>
+        <div v-for="(currentDevice, id) in currentEnvironment.devices" :key="id">        
+            <h5>{{ currentDevice.name }}</h5>
+            <span class="icons material-icons-round">{{ currentDevice.icon }}</span>
+            <div :class="`button-${currentDevice.state}`">
+                <button class="on">ON</button>
+                <button class="off">OFF</button>
+            </div>      
+        </div>    
+        <hr>
     </div>
     
 </template>
