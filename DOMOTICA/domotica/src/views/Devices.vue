@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DeviceComponent from '@/components/DeviceComponent.vue';
 import { Device, Environment } from '@/models/devices';
 import { ref, reactive } from 'vue';
 
@@ -41,12 +42,7 @@ environments.push(quarto);
     <div v-for="(currentEnvironment, envId) in environments" :key="envId">
         <h3>{{ currentEnvironment.name }}</h3>
         <div v-for="(currentDevice, id) in currentEnvironment.devices" :key="id">        
-            <h5>{{ currentDevice.name }}</h5>
-            <span class="icons material-icons-round">{{ currentDevice.icon }}</span>
-            <div :class="`button-${currentDevice.state}`">
-                <button class="on">ON</button>
-                <button class="off">OFF</button>
-            </div>      
+            <DeviceComponent :device="currentDevice"/>    
         </div>    
         <hr>
     </div>
@@ -54,20 +50,5 @@ environments.push(quarto);
 </template>
 
 <style scoped lang="scss">
-    .button-true{
-        .on{
-            background-color: green;
-        }
-        .off{
-            background-color: white;
-        }
-    }
-    .button-false{
-        .on{
-            background-color: white;
-        }
-        .off{
-            background-color: red;
-        }
-    }
+   
 </style>
