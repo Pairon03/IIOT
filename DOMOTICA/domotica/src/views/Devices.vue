@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import DeviceComponent from '@/components/DeviceComponent.vue';
+import EnvironmentComponent from '@/components/EnvironmentComponent.vue';
 import { Device, Environment } from '@/models/devices';
 import { ref, reactive } from 'vue';
 
 const ar: Device = reactive(new Device());
 ar.name = 'Ar condicionado Samsung';
 ar.state = true;
-ar.icon = 'mode_cool';
+ar.icon = 'heat_pump';
 
 const tv: Device = reactive(new Device());
 tv.name = 'Smart TV LG';
@@ -40,11 +41,7 @@ environments.push(quarto);
     <h1>Seus Dispositivos: </h1>
 
     <div v-for="(currentEnvironment, envId) in environments" :key="envId">
-        <h3>{{ currentEnvironment.name }}</h3>
-        <div v-for="(currentDevice, id) in currentEnvironment.devices" :key="id">        
-            <DeviceComponent :device="currentDevice"/>    
-        </div>    
-        <hr>
+       <EnvironmentComponent :environment="currentEnvironment"/>
     </div>
     
 </template>

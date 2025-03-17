@@ -1,4 +1,5 @@
 @use "material-icons/iconfont/material-icons.css";
+@use "primeflex/primeflex.css";
 @use "reset.scss";
 @use "variables.scss";
 
@@ -9,4 +10,8 @@
     min-height: 100vh;
     background-color: var(--background-light-color);
     font-family: 'Roboto';
+}
+
+.teste{
+    background-color: red;
 }
