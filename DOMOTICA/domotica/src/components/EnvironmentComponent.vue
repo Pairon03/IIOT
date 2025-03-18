@@ -10,11 +10,13 @@ import DeviceComponent from './DeviceComponent.vue';
 </script>
 
 <template>
-    <section>
-        <h3>{{ props.environment.name }}</h3>
-        <div v-for="(currentDevice, id) in props.environment.devices" :key="id">        
+    <section class="flex flex-column">
+        <h3 class="m-3">{{ props.environment.name }}</h3>
+        <div class="flex flex-row">
+            <div v-for="(currentDevice, id) in props.environment.devices" :key="id">        
             <DeviceComponent :device="currentDevice"/>    
-        </div>    
+        </div>
+        </div>
         <hr>  
     </section>
 </template>
