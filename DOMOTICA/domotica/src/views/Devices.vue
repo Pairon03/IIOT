@@ -8,15 +8,18 @@ const ar: Device = reactive(new Device());
 ar.name = 'Ar condicionado Samsung';
 ar.state = false;
 ar.icon = 'heat_pump';
+ar.favorite = false;
 
 const tv: Device = reactive(new Device());
 tv.name = 'Smart TV LG';
 tv.icon = 'tv';
+tv.favorite = true;
 
 const iluminacao: Device = reactive(new Device());
 iluminacao.name = 'Lâmpada Led';
 iluminacao.state = true;
 iluminacao.icon = 'light';
+iluminacao.favorite = false;
 
 const sala: Environment = reactive(new Environment());
 sala.name = 'Sala de Estar';
@@ -27,12 +30,18 @@ const tomada: Device = reactive(new Device());
 tomada.name = 'Tomada inteligente';
 tomada.state = false;
 tomada.icon = 'power';
+tomada.favorite = false;
 
 const quarto: Environment = reactive(new Environment());
 quarto.name = 'Quarto de Hóspedes';
 quarto.devices = [ tomada ];
 
+const favorito: Environment = reactive(new Environment());
+favorito.name = 'Favoritos';
+favorito.devices = [];
+
 const environments: Array<Environment> = reactive([]);
+environments.push(favorito); 
 environments.push(sala);
 environments.push(quarto);
 

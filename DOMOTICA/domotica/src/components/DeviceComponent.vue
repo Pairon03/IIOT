@@ -12,6 +12,9 @@ import { Device } from '@/models/devices';
     <section class="flex clex-column text-center align-items-center
     justify-content-center">
         <h5>{{ props.device.name }}</h5>
+             <div :class="`device-favorite-buttons button-${props.device.favorite}`">
+                <button @click="()=>props.device.favorite = true" class="on">ON</button>
+            </div>  
             <span class="icons material-icons-round">{{ props.device.icon }}</span>
             <div :class="`device-buttons button-${props.device.state}`">
                 <button @click="()=>props.device.state = true" class="on">ON</button>
@@ -23,8 +26,8 @@ import { Device } from '@/models/devices';
 <style scoped lang="scss">
     section {
         background-color: var(--background-device-color);
-        width: 10rem;
-        height: 6.5rem;
+        width: 12rem;
+        height: 10.5rem;
         margin: 0.5rem;
 
         .icons{
@@ -41,6 +44,17 @@ import { Device } from '@/models/devices';
                 opacity: 0.6;
                 transform: scale(1.05);
                 transition: 0.3s;
+            }
+        }
+
+        .device-favorite-buttons button{
+            border: none;
+            padding: 0.4rem;
+            cursor: pointer;
+            &:hover{
+                opacity: 0.6;
+                transform: scale(1.05);
+                transition: 0.2s;
             }
         }
     }
