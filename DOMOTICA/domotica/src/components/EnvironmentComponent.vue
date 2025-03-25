@@ -4,7 +4,8 @@ import DeviceComponent from './DeviceComponent.vue';
 
 
     const props = defineProps({
-        environment: {type: Environment, required: true}
+        environment: {type: Environment, required: true},
+        showDeviceButtons: { type: Boolean, default: true }
     });
 
 </script>
@@ -14,7 +15,7 @@ import DeviceComponent from './DeviceComponent.vue';
         <h3 class="m-3">{{ props.environment.name }}</h3>
         <div class="flex flex-row">
             <div v-for="(currentDevice, id) in props.environment.devices" :key="id">        
-            <DeviceComponent :device="currentDevice"/>    
+            <DeviceComponent :show-buttons="showDeviceButtons" :device="currentDevice"/>    
         </div>
         </div>
         <hr>  
