@@ -3,43 +3,16 @@ import DeviceComponent from '@/components/DeviceComponent.vue';
 import EnvironmentComponent from '@/components/EnvironmentComponent.vue';
 import { Device, Environment } from '@/models/devices';
 import { ref, reactive, onMounted } from 'vue';
+import { useDeviceRepository } from '@/stores/deviceRepositary';
 
 const selectedEnvironment = ref(new Environment());
-
-const ar: Device = reactive(new Device());
-ar.name = 'Ar condicionado Samsung';
-ar.state = false;
-ar.icon = 'heat_pump';
-
-const tv: Device = reactive(new Device());
-tv.name = 'Smart TV LG';
-tv.icon = 'tv';
-
-const iluminacao: Device = reactive(new Device());
-iluminacao.name = 'Lâmpada Led';
-iluminacao.state = true;
-iluminacao.icon = 'light';
-
-const sala: Environment = reactive(new Environment());
-sala.name = 'Sala de Estar';
-sala.devices = [ ar, tv, iluminacao ];
-
-
-const tomada: Device = reactive(new Device());
-tomada.name = 'Tomada inteligente';
-tomada.state = false;
-tomada.icon = 'power';
-
-const quarto: Environment = reactive(new Environment());
-quarto.name = 'Quarto de Hóspedes';
-quarto.devices = [ tomada ];
-
-const environments: Array<Environment> = reactive([]);
-environments.push(sala);
-environments.push(quarto);
+const newEnv = reactive(new Environment());
+const saveNewEnv = ()=> {
+    useDeviceRepository().addEnvironment(newEnv);
+}
 
 onMounted(() => {
-    selectedEnvironment.value = environments[0] ?? new Environment();
+    selectedEnvironment.value = useDeviceRepository().environments[0] ?? new Environment();
 })
 
 </script>
@@ -51,11 +24,21 @@ onMounted(() => {
             <div class="flex flex-row m-3">
                 <label for="selectedEnv" class="mr-3">Ambiente:</label>
                 <select name="" id="selectedEnv" v-model="selectedEnvironment">
-                    <option v-for="(currentEnv, envId) in environments" :key="envId" :value="currentEnv">{{currentEnv.name}}</option>
-                    <option value="" v-if="environments.length == 0">
+                    <option v-for="(currentEnv, envId) in useDeviceRepository().environments" :key="envId" :value="currentEnv">{{currentEnv.name}}</option>
+                    <option value="" v-if="useDeviceRepository().environments.length == 0">
                         Sem Ambientes!
                     </option>     
                 </select>
+                <button>
+                    <span class="icons material-icons-round">add</span>
+                </button>
+                <div>
+                    <label for="">Nome</label>
+                    <input type="text" v-model="newEnv.name">
+                </div>
+                <button @click="saveNewEnv">
+                    <span class="icons material-icons-round">save</span>
+                </button>
             </div>
             <div>
                 <EnvironmentComponent :show-device-buttons="false" :environment="selectedEnvironment"/>
