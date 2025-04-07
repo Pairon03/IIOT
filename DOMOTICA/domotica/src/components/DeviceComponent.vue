@@ -3,14 +3,19 @@
     
     const props = defineProps({
         device: { type: Device, required: true },
-        showButtons: { type: Boolean, default: true }
+        showButtons: { type: Boolean, default: true },
+        index: { type: Number, required: true }
     });
+
+    const emit = defineEmits(['deviceDeleteEvent']);
+
 </script>
 
 <template>
     <section class="flex flex-column text-center align-items-center
      justify-content-center border-round-sm">
-        <div v-if="!props.showButtons" class="remove-container flex mt-2 justify-content-end align-items-center">
+        <div @click="emit('deviceDeleteEvent',props.index)"
+         v-if="!props.showButtons" class="remove-container flex mt-2 justify-content-end align-items-center">
             <span class="icons material-icons-round">delete</span>
         </div>
         <div>

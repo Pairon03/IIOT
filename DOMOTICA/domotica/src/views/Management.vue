@@ -3,18 +3,20 @@ import DeviceComponent from '@/components/DeviceComponent.vue';
 import EnvironmentComponent from '@/components/EnvironmentComponent.vue';
 import { Device, Environment } from '@/models/devices';
 import { ref, reactive, onMounted } from 'vue';
-import { useDeviceRepository } from '@/stores/deviceRepositary';
+import { useDeviceRepository } from '@/stores/deviceRepository';
 
 const selectedEnvironment = ref(new Environment());
 const newEnv = reactive(new Environment());
+const showNewEnvForm = ref(false);
+
 const saveNewEnv = ()=> {
     useDeviceRepository().addEnvironment(newEnv);
+    showNewEnvForm.value = false;
 }
 
 onMounted(() => {
-    selectedEnvironment.value = useDeviceRepository().environments[0] ?? new Environment();
+    selectedEnvironment.value =  useDeviceRepository().environments[0] ?? new Environment();
 })
-
 </script>
 
 <template>
@@ -23,26 +25,29 @@ onMounted(() => {
         <section class="environments flex flex-column border-round-sm">
             <div class="flex flex-row m-3">
                 <label for="selectedEnv" class="mr-3">Ambiente:</label>
-                <select name="" id="selectedEnv" v-model="selectedEnvironment">
-                    <option v-for="(currentEnv, envId) in useDeviceRepository().environments" :key="envId" :value="currentEnv">{{currentEnv.name}}</option>
+                <select id="selectedEnv" v-model="selectedEnvironment">
+                    <option v-for="(currentEnv, envId) in useDeviceRepository().environments" :key="envId" 
+                      :value="currentEnv">
+                        {{ currentEnv.name }}
+                    </option>
                     <option value="" v-if="useDeviceRepository().environments.length == 0">
                         Sem Ambientes!
-                    </option>     
+                    </option>                      
                 </select>
-                <button>
+                <button @click="()=> showNewEnvForm = true">
                     <span class="icons material-icons-round">add</span>
                 </button>
-                <div>
-                    <label for="">Nome</label>
+                <div v-if="showNewEnvForm">
+                    <label for="">Nome:</label>
                     <input type="text" v-model="newEnv.name">
                 </div>
-                <button @click="saveNewEnv">
+                <button @click="saveNewEnv" v-if="showNewEnvForm">
                     <span class="icons material-icons-round">save</span>
                 </button>
             </div>
             <div>
-                <EnvironmentComponent :show-device-buttons="false" :environment="selectedEnvironment"/>
-            </div>
+                <EnvironmentComponent :showDeviceButtons="false" :environment="selectedEnvironment" />
+            </div>            
         </section>
     </main>
 </template>

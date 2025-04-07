@@ -3,13 +3,13 @@
 @use "reset.scss";
 @use "variables.scss";
 
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
 
 #app{
     min-width: 100vw;
     min-height: 100vh;
     background-color: var(--background-light-color);
-    font-family: 'Roboto';
+    font-family: 'Dosis';
 }
 
 .teste{
