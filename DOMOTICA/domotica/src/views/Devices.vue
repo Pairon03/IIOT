@@ -2,7 +2,21 @@
 import DeviceComponent from '@/components/DeviceComponent.vue';
 import EnvironmentComponent from '@/components/EnvironmentComponent.vue';
 import { Device, Environment } from '@/models/devices';
+import { getDevices } from '@/services/cdnService';
 import { ref, reactive } from 'vue';
+
+
+const teste = import.meta.env.VITE_CONTENTFUL_CDN_TOKEN;
+
+console.log("teste: ", teste)
+
+getDevices()
+    .then(testeDevices =>{
+        console.log("DEU CERTO OS DEVICES: ", testeDevices)
+    })
+    .catch(error =>{
+        console.error("VIXE, DEU MERDA!", error);
+    });
 
 const ar: Device = reactive(new Device());
 ar.name = 'Ar condicionado Samsung';

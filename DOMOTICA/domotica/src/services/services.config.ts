@@ -6,14 +6,14 @@ export const getCdnAxios = (headers?: AxiosHeaders)=> {
     return getAxios("cdn",token,headers);
 }
 
-export const getCdnAxios = (headers?: AxiosHeaders)=> {
+export const getApiAxios = (headers?: AxiosHeaders)=> {
     const token = import.meta.env.CONTENTFUL_API_TOKEN;
     return getAxios("api",token,headers);
 }
 
 export const getAxios = (target:'cdn'|'api', token:String, 
                          headers?: AxiosHeaders)=> {
-    if(headers === null) headers = new AxiosHeaders();
+    if(!headers) headers = new AxiosHeaders();
 
     headers.set('Authorization', `Bearer ${token}`);
     headers.set('Content-Type', 'application/json');
