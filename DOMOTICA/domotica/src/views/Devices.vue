@@ -1,55 +1,30 @@
 <script setup lang="ts">
 import DeviceComponent from '@/components/DeviceComponent.vue';
 import EnvironmentComponent from '@/components/EnvironmentComponent.vue';
-import { Device, Environment } from '@/models/devices';
-import { getDevices } from '@/services/cdnService';
-import { ref, reactive } from 'vue';
+import { ApiResponse, Device, Environment } from '@/models/devices';
+import { getDevices, getEnvironments } from '@/services/cdnService';
+import { onMounted } from 'vue';
+import { ref, reactive, onMouted } from 'vue';
 
+const allEnvironments: Array<Environment> = reactive([]);
+const environmentResponse: ApiResponse<Environment> = 
+    reactive(new ApiResponse());
 
-const teste = import.meta.env.VITE_CONTENTFUL_CDN_TOKEN;
+const teste: Array<number> = [];
+teste.map()
 
-console.log("teste: ", teste)
+onMounted(()=>{
 
-getDevices()
-    .then(testeDevices =>{
-        console.log("DEU CERTO OS DEVICES: ", testeDevices)
+  getEnvironments()
+    .then(response =>{
+        const envs = response.items.map(item=> item.fields);
     })
     .catch(error =>{
         console.error("VIXE, DEU MERDA!", error);
     });
 
-const ar: Device = reactive(new Device());
-ar.name = 'Ar condicionado Samsung';
-ar.state = false;
-ar.icon = 'heat_pump';
 
-const tv: Device = reactive(new Device());
-tv.name = 'Smart TV LG';
-tv.icon = 'tv';
-
-const iluminacao: Device = reactive(new Device());
-iluminacao.name = 'Lâmpada Led';
-iluminacao.state = true;
-iluminacao.icon = 'light';
-
-const sala: Environment = reactive(new Environment());
-sala.name = 'Sala de Estar';
-sala.devices = [ ar, tv, iluminacao ];
-
-
-const tomada: Device = reactive(new Device());
-tomada.name = 'Tomada inteligente';
-tomada.state = false;
-tomada.icon = 'power';
-
-const quarto: Environment = reactive(new Environment());
-quarto.name = 'Quarto de Hóspedes';
-quarto.devices = [ tomada ];
-
-const environments: Array<Environment> = reactive([]);
-environments.push(sala);
-environments.push(quarto);
-
+});
 
 </script>
 
