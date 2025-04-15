@@ -3,26 +3,27 @@ import DeviceComponent from '@/components/DeviceComponent.vue';
 import EnvironmentComponent from '@/components/EnvironmentComponent.vue';
 import { ApiResponse, Device, Environment } from '@/models/devices';
 import { getDevices, getEnvironments } from '@/services/cdnService';
-import { onMounted } from 'vue';
-import { ref, reactive, onMouted } from 'vue';
+import { ref, reactive, onMounted, type Ref } from 'vue';
 
 const allEnvironments: Array<Environment> = reactive([]);
-const environmentResponse: ApiResponse<Environment> = 
-    reactive(new ApiResponse());
-
-const teste: Array<number> = [];
-teste.map()
+/*const environmentResponse: Ref<ApiResponse<Environment>> = 
+    ref(new ApiResponse());*/
 
 onMounted(()=>{
 
   getEnvironments()
     .then(response =>{
-        const envs = response.items.map(item=> item.fields);
+        //environmentResponse.value = response;
+
+        response.items.forEach(item=> {
+            if(item.fields) allEnvironments.push(item.fields);
+        }); 
+        
+        console.log("allEnvironments", allEnvironments)
     })
     .catch(error =>{
-        console.error("VIXE, DEU MERDA!", error);
+        console.error("Error when getting environments", error);
     });
-
 
 });
 
@@ -32,7 +33,7 @@ onMounted(()=>{
     <main class="flex flex-column justify-content-center align-items-center">
         <h1>Seus Dispositivos: 🚥</h1>    
        <section class="environments border-round-sm">
-            <div v-for="(currentEnvironment, envId) in environments" :key="envId">
+            <div v-for="(currentEnvironment, envId) in allEnvironments" :key="envId">
                 <EnvironmentComponent :environment="currentEnvironment" />
             </div>
        </section>
